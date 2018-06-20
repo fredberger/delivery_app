@@ -23,6 +23,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'guard-rspec', require: false
   gem 'simplecov', require: false
+  gem 'factory_bot_rails'
 end
 
 group :development do
