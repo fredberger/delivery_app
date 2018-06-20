@@ -24,6 +24,7 @@ group :development, :test do
   gem 'guard-rspec', require: false
   gem 'simplecov', require: false
   gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
 end
 
 group :development do
