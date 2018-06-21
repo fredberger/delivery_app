@@ -1,7 +1,9 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# Populate pdv table by importing data from file on root path
+unless Pdv.any?
+  pdv_file = File.read(File.expand_path('pdv_list.json'))
+  pdv_list = JSON(pdv_file)
+
+  pdv_list["pdvs"].each do |pdv|
+    Pdv.create(id: pdv["id"], tradingName: pdv["tradingName"], ownerName: pdv["ownerName"], document: pdv["document"], coverageArea: pdv["coverageArea"], address: pdv["address"])
+  end
+end
