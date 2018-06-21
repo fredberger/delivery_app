@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_15_184907) do
+ActiveRecord::Schema.define(version: 2018_06_20_194650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_table "pdvs", force: :cascade do |t|
     t.string "tradingName"
@@ -21,6 +22,8 @@ ActiveRecord::Schema.define(version: 2018_06_15_184907) do
     t.string "document"
     t.json "coverageArea", default: {}, null: false
     t.json "address", default: {}, null: false
+    t.geometry "delivery_area", limit: {:srid=>0, :type=>"geometry"}
+    t.geography "lnglat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
   end
 
 end

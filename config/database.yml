@@ -1,5 +1,10 @@
 default: &default
-  adapter: postgresql
+  adapter: postgis
+  host: localhost
+  port: 5433
+  password: postgres
+  username: postgres
+  schema_search_path: public
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
