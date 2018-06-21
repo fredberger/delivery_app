@@ -42,12 +42,22 @@ API to create, fetch and search PDV's
 
     bundle exec rails s
 
+## Tests
+
+To run tests and generate coverage report:
+
+    RAILS_ENV=test bundle exec rails db:migrate
+    bundle exec rails spec
+
+
 ## Deploy
 
 Master branch are setted to continuos delivery when build success
 
 
-## Consume API's
+# Consume API's
+
+## REST
 
 #### Create PDV
 
@@ -142,3 +152,32 @@ Response 200 ok:
       },
       "successful": true
     }
+
+## GraphQL
+
+#### Endpoint
+
+    /graphql
+
+#### Get PDV by id
+
+    query {
+        pdv(id: 51) {
+            id
+            tradingName
+            ownerName
+            document
+        }
+    }
+
+#### Search PDV
+
+    query {
+        searchPdv(lng: -43.29, lat: -23.01) {
+            id
+            tradingName
+            ownerName
+            document
+        }
+    }
+
