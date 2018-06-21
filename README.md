@@ -1,24 +1,144 @@
-# README
+# DELIVERY APP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API to create, fetch and search PDV's
 
-Things you may want to cover:
+## Dependencies
+#### Ruby
+    2.5.0
+#### Rails
+    5.2.0
+#### Postgres
+    9.4+
+#### PostGis Extension
+    2.2+
 
-* Ruby version
+## Run local
 
-* System dependencies
+#### Download and install rvm
 
-* Configuration
+    http://rvm.io/
 
-* Database creation
+#### Install Ruby version 2.5.0
 
-* Database initialization
+    rvm install 2.5.0
 
-* How to run the test suite
+#### Create gemset
 
-* Services (job queues, cache servers, search engines, etc.)
+    rvm gemset create delivery_app
+    rvm gemset use delivery_app
 
-* Deployment instructions
+#### Install dependencies
 
-* ...
+    gem install bundler
+    bundle install
+
+#### Configure database
+
+    bundle exec rails db:create
+    bundle exec rails db:migrate
+    bundle exec rails db:seed # To populate PDV list
+
+#### Start server
+
+    bundle exec rails s
+
+## Deploy
+
+Master branch are setted to continuos delivery when build success
+
+
+## Consume API's
+
+#### Create PDV
+
+Send a request:
+
+    POST http://127.0.0.1:3000/pdvs
+
+With Body:
+
+    {
+      "tradingName": "Adega da Cerveja - Pinheiros",
+      "ownerName": "Zé da Silva",
+      "document": "1432132123891/0001",
+      "coverageArea": {
+        "type": "MultiPolygon",
+        "coordinates": [[[[30, 20],[45, 40],[10, 40],[30, 20]]]]
+      },
+      "address": {
+        "type": "Point",
+        "coordinates": [20, 35]
+      }
+    }
+
+Response 200 ok:
+
+    {
+      "pdv": {
+        "id": 3,
+        "tradingName": "Adega da Cerveja - Pinheiros",
+        "ownerName": "Zé da Silva",
+        "document": "1432132123891/0001",
+        "coverageArea": {
+          "type": "MultiPolygon",
+          "coordinates": [[[[30,20],[45,40],[10,40],[30,20]]]]
+        },
+        "address": {
+          "type": "Point",
+          "coordinates": [20,35]
+        }
+      },
+      "successful": true
+    }
+
+#### Get PDV by id
+
+Send a request:
+
+    GET http://127.0.0.1:3000/pdvs/:id
+
+Response 200 ok:
+
+    {
+      "pdv": {
+        "id": 3,
+        "tradingName": "Adega da Cerveja - Pinheiros",
+        "ownerName": "Zé da Silva",
+        "document": "1432132123891/0001",
+        "coverageArea": {
+          "type": "MultiPolygon",
+          "coordinates": [[[[30,20],[45,40],[10,40],[30,20]]]]
+        },
+        "address": {
+          "type": "Point",
+          "coordinates": [20,35]
+        }
+      },
+      "successful": true
+    }
+
+#### Search PDV
+
+Send a request:
+
+    GET http://127.0.0.1:3000/pdvs/search?lng=-43.29&lat=-23.01
+
+Response 200 ok:
+
+    {
+      "pdv": {
+        "id": 3,
+        "tradingName": "Adega da Cerveja - Pinheiros",
+        "ownerName": "Zé da Silva",
+        "document": "1432132123891/0001",
+        "coverageArea": {
+          "type": "MultiPolygon",
+          "coordinates": [[[[30,20],[45,40],[10,40],[30,20]]]]
+        },
+        "address": {
+          "type": "Point",
+          "coordinates": [20,35]
+        }
+      },
+      "successful": true
+    }
