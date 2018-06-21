@@ -12,7 +12,7 @@ FactoryBot.define do
     address {
       {
         type: "Point",
-        coordinates: [-46.57421, -21.785741]
+        coordinates: [30, 30]
       }
     }
   end
